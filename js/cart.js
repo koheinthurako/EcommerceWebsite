@@ -17,10 +17,10 @@ export function createCard(items) {
     let div = document.createElement("div");
     div.classList.add("col-12", "col-md-6", "col-lg-4");
     div.innerHTML = `
-      <div class="card border-0 shadow h-100">
+      <div class="card border-0 shadow h-100 productCard">
         <div class="card-body d-flex flex-column justify-content-between">
-          <div class="info">
-            <img class="w-100 mb-3 rounded-3" src="${items.thumbnail}" alt="">
+          <div class="info mb-4">
+            <img class="productCardImg mb-3 rounded-3" src="${items.thumbnail}" alt="">
             <h4 class="fw-bold">${items.brand}</h4>
             <p class="badge bg-dark px-3 py-2">${items.category}</p>
             <p class="small text-muted">${items.description}</p>
