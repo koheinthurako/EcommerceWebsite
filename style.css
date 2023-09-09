@@ -9,8 +9,19 @@ body {
   cursor: pointer;
 }
 
+#allCardBox .card {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#allCardBox .card:hover {
+  transform: translateY(-5px);
+}
+
 #allCardBox .productCardImg {
   height: 100px;
+  max-width: 100%;
+  object-fit: cover;
 }
 
 /*# sourceMappingURL=style.css.map */

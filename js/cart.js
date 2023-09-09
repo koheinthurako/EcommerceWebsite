@@ -13,6 +13,12 @@ const stars = (no) => { // function expression
 }
 
 
+// functions
+function addToCart(btn) {
+  console.log(btn.target);
+}
+
+
 export function createCard(items) {
     let div = document.createElement("div");
     div.classList.add("col-12", "col-md-6", "col-lg-4");
@@ -22,7 +28,7 @@ export function createCard(items) {
           <div class="info mb-4">
             <img class="productCardImg mb-3 rounded-3" src="${items.thumbnail}" alt="">
             <h4 class="fw-bold">${items.brand}</h4>
-            <p class="badge bg-dark px-3 py-2">${items.category}</p>
+            <p class="badge bg-secondary px-3 py-2">${items.category}</p>
             <p class="small text-muted">${items.description}</p>
           </div>
 
@@ -34,7 +40,7 @@ export function createCard(items) {
           </div>
           </div>
         <div class="card-footer py-3">
-          <button class="btn btn-dark w-100">Add to cart</button>
+          <button class="btn btn-outline-dark w-100 addCartBtn">Add to cart</button>
         </div>
       </div>
     `;
@@ -42,4 +48,11 @@ export function createCard(items) {
     // console.log(items);
 
     allCardBox.append(div);
+
+    const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
+
+    addCartBtns.forEach(btn => {
+      btn.addEventListener('click', addToCart);
+    })
+
 }
