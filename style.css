@@ -1,0 +1,12 @@
+@import url("./node_modules/bootstrap/scss/bootstrap.scss");
+@import url("./node_modules/animate.css/animate.css");
+@import url("./node_modules/bootstrap-icons/font/bootstrap-icons.css");
+body {
+  background-color: rgb(246, 246, 246);
+}
+
+#navbar #mainIcon {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=style.css.map */
