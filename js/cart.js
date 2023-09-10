@@ -1,4 +1,12 @@
+import { allProducts } from "../main";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
+
 const allCardBox = document.querySelector("#allCardBox");
+const productDetailModal = new bootstrap.Modal("#productDetailModal");
+
+
+
+
 
 const stars = (no) => { // function expression
   let star = "";
@@ -14,6 +22,16 @@ const stars = (no) => { // function expression
 
 
 // functions
+function showInfo(card) {
+  let currentCard = card.target.closest(".itemCard");
+  // console.log(currentCard);
+  const currentProductId = currentCard.getAttribute("itemId")
+  const currentProduct = allProducts.find((product => product.id == currentProductId));
+
+  productDetailModal.show();
+
+}
+
 function addToCart(btn) {
   console.log(btn.target);
 }
@@ -21,14 +39,15 @@ function addToCart(btn) {
 
 export function createCard(items) {
     let div = document.createElement("div");
-    div.classList.add("col-12", "col-md-6", "col-lg-4");
+    div.classList.add("col-12", "col-md-6", "col-lg-4", "itemCard");
+    div.setAttribute("itemId", items.id);
     div.innerHTML = `
-      <div class="card border-0 shadow h-100 productCard">
+      <div class="card border-0 shadow h-100">
         <div class="card-body d-flex flex-column justify-content-between">
           <div class="info mb-4">
             <img class="productCardImg mb-3 rounded-3" src="${items.thumbnail}" alt="">
             <h4 class="fw-bold">${items.brand}</h4>
-            <p class="badge bg-secondary px-3 py-2">${items.category}</p>
+            <p class="badge bg-secondary text-capitalize px-3 py-2">${items.category.replaceAll("-"," ")}</p>
             <p class="small text-muted">${items.description}</p>
           </div>
 
@@ -39,7 +58,7 @@ export function createCard(items) {
             <p class="fw-bold mb-0">$ ${items.price}</p>
           </div>
           </div>
-        <div class="card-footer py-3">
+        <div class="card-footer bg-white py-3">
           <button class="btn btn-outline-dark w-100 addCartBtn">Add to cart</button>
         </div>
       </div>
@@ -49,7 +68,14 @@ export function createCard(items) {
 
     allCardBox.append(div);
 
+
+
+    const allCards = document.querySelectorAll(".itemCard");
     const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
+
+    allCards.forEach(card => {
+      card.addEventListener('click', showInfo);
+    })
 
     addCartBtns.forEach(btn => {
       btn.addEventListener('click', addToCart);
