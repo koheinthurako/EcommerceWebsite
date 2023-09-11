@@ -84,8 +84,6 @@ function showInfo(card) {
   `;
 
   productDetailModal.show();
-  console.log(currentProduct);
-
 }
 
 function addToCart(btn) {
