@@ -27,19 +27,21 @@ const productDetailCarouselItems = (arr) => {
   let slides = "";
   let indicators = "";
   arr.forEach((el, index) => {
-    slides += ` <div class="carousel-item ${index === 0 && "active"}">
-        <img src="${el}" class="d-block w-100" alt="...">
+    slides += ` 
+    <div class="carousel-item ${index === 0 && 'active'}">
+        <img src="${el}" class="d-block w-100 product-detail-img" alt="...">
+    </div>
     `;
 
     indicators += `
       <button
-      type="button"
-      data-bs-target="#productDetailCarousel"
-      data-bs-slide-to="0"
-      class="${index === 0 && "active"}"
-      aria-current="true"
-      aria-label="Slide 1"></button>
-
+        type="button"
+        data-bs-target="#productDetailCarousel"
+        data-bs-slide-to="${index}"
+        class="${index === 0 && 'active'}"
+        aria-current="true"
+        aria-label="Slide 1">
+      </button>
     `;
   });
 
@@ -56,30 +58,31 @@ function showInfo(card) {
   // ဒီနေရာမှာ productDetailModal က DOM Element မဟုတ်ပါ "_element" ကမှ တကယ့် DOM Element ပါ 
   productDetailModal._element.querySelector(".modal-title").innerText = currentProduct.title;
   productDetailModal._element.querySelector(".modal-body").innerHTML = `
-    <div id="productDetailCarousel" class="carousel slide">
+    <div id="carouselExampleIndicators" class="carousel slide">
       <div class="carousel-indicators">
         ${productDetailCarouselItems(currentProduct.images).indicators}
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#productDetailCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#productDetailCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
       <div class="carousel-inner">
         ${productDetailCarouselItems(currentProduct.images).slides}
       </div>
-  </div>
-  <p class="mt-4 mb-5">An apple mobile which is nothing like apple</p>
-  <div class="d-flex justify-content-between">
-    <p class="fw-bold mb-0">$ ${currentProduct.price}</p>
-    <div class="stars">
-      ${stars(currentProduct.rating)}
-    </div>  
-  </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <p class="mt-4 mb-5">An apple mobile which is nothing like apple</p>
+    <div class="d-flex justify-content-between">
+      <p class="fw-bold mb-0">$ ${currentProduct.price}</p>
+      <div class="stars">
+        ${stars(currentProduct.rating)}
+      </div>  
+    </div>
   `;
+
   productDetailModal.show();
   console.log(currentProduct);
 
