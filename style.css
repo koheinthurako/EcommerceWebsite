@@ -24,4 +24,11 @@ body {
   object-fit: cover;
 }
 
+.carousel .product-detail-img {
+  height: 300px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -12,10 +12,6 @@ body {
     cursor: pointer;
 }
 
-// #allCardBox .productCard {
-//     height: 340px;
-// }
-
 #allCardBox .card{
     cursor: pointer;
     transition: 0.2s;
@@ -29,4 +25,11 @@ body {
     height: 100px;
     max-width: 100%;
     object-fit: cover;
+}
+
+.carousel .product-detail-img {
+    height: 300px;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
 }
