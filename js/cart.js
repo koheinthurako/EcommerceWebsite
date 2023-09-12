@@ -3,7 +3,9 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const allCardBox = document.querySelector("#allCardBox");
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
+const productCategories = document.querySelector("#productCategories");
 
+// Imperative thinking
 // const categories = [];
 // setTimeout(() => {
 //   allProducts.forEach(product => {
@@ -15,11 +17,36 @@ const productDetailModal = new bootstrap.Modal("#productDetailModal");
 
 // OR
 
+// Declarative thinking
+// setTimeout(() => {
+//   const categories = [...new Set(allProducts.map((product) => product.category))];
+  // console.log(categories);
+//   categories.forEach(category => {
+//     const btn = document.createElement("button");
+//     productCategories.append();
+//   });
+// }, 1000)
+
+
+
+
+
+// functions
+
 setTimeout(() => {
-  const categories = [...new Set(allProducts.map((product) => product.category))];
-  console.log(categories);
+    const categories = [...new Set(allProducts.map((product) => product.category))];
+    categories.forEach(category => {
+      productCategories.append(createCategoryBtn(category));
+    });
 }, 1000)
 
+// carousel photo function
+const createCategoryBtn = (name) => {
+  const btn = document.createElement("button");
+  btn.className = "btn btn-outline-dark"
+  btn.innerText = name;
+  return btn;
+}
 
 const stars = (no) => { // function expression
   let star = "";
@@ -33,10 +60,6 @@ const stars = (no) => { // function expression
   return star;
 }
 
-
-// functions
-
-// carousel photo function
 const productDetailCarouselItems = (arr) => {
   let slides = "";
   let indicators = "";
