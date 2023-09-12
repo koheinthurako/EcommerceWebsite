@@ -4,8 +4,16 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 const allCardBox = document.querySelector("#allCardBox");
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
 
+const categories = [];
+setTimeout(() => {
+  allProducts.forEach(product => {
+    if(!categories.includes(product.category)) {
+      categories.push(product.category);
+    }
+  });
+}, 2000);
 
-
+console.log(categories);
 
 const stars = (no) => { // function expression
   let star = "";
