@@ -109,7 +109,7 @@ function addToCart(btn) {
 
 export function createCard(items) {
     let div = document.createElement("div");
-    div.classList.add("col-12", "col-md-6", "col-lg-4", "itemCard");
+    div.classList.add("col-12", "col-md-6", "col-lg-4", "itemCard", "animate__animated", "animate__bounceIn");
     div.setAttribute("itemId", items.id);
     div.innerHTML = `
       <div class="card border-0 shadow h-100">
