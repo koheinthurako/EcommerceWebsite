@@ -43,8 +43,9 @@ setTimeout(() => {
 // carousel photo function
 const createCategoryBtn = (name) => {
   const btn = document.createElement("button");
-  btn.className = "btn btn-outline-dark"
-  btn.innerText = name;
+  btn.className = "btn btn-sm btn-outline-dark text-capitalize";
+  btn.innerText = slugToText(name);
+  btn.setAttribute("cat", name);
   return btn;
 }
 
@@ -83,6 +84,10 @@ const productDetailCarouselItems = (arr) => {
   });
 
   return {slides,indicators};
+}
+
+const slugToText = (slug) => {
+  return slug.replaceAll("-", " ");
 }
 
 function showInfo(card) {
@@ -140,7 +145,7 @@ export function createCard(items) {
           <div class="info mb-4">
             <img class="productCardImg mb-3 rounded-3" src="${items.thumbnail}" alt="">
             <h4 class="fw-bold">${items.title}</h4>
-            <p class="badge bg-secondary text-capitalize px-3 py-2">${items.category.replaceAll("-"," ")}</p>
+            <p class="badge bg-secondary text-capitalize px-3 py-2">${slugToText(items.category)}</p>
             <p class="small text-muted">${items.description}</p>
           </div>
 
