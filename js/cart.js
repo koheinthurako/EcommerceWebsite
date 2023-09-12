@@ -4,6 +4,8 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 const allCardBox = document.querySelector("#allCardBox");
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
 const productCategories = document.querySelector("#productCategories");
+const allBtn = document.querySelector("[cat='all']");
+
 
 // Imperative thinking
 // const categories = [];
@@ -33,11 +35,30 @@ const productCategories = document.querySelector("#productCategories");
 
 // functions
 
+const showCategory = (btn, allBtns) => {
+  allBtns.forEach(btn => {
+    btn.classList.remove("active");
+  })
+  if(!btn.classList.contains("active")) {
+    btn.classList.add("active");
+  }
+}
+
 setTimeout(() => {
     const categories = [...new Set(allProducts.map((product) => product.category))];
     categories.forEach(category => {
       productCategories.append(createCategoryBtn(category));
     });
+
+    const categoryBtns = document.querySelectorAll("#productCategories .btn");
+    categoryBtns.forEach(btn => {
+      // btn.classList.remove("active");
+      // btn.addEventListener('click', showCategory);
+      btn.addEventListener('click', () => {
+        showCategory(btn, categoryBtns);
+      });
+    });
+
 }, 1000)
 
 // carousel photo function
@@ -177,5 +198,6 @@ export function createCard(items) {
     addCartBtns.forEach(btn => {
       btn.addEventListener('click', addToCart);
     })
+    
 
 }
