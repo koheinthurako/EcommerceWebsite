@@ -2,8 +2,8 @@ import { items, renderProductCard } from "../main";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
-// const productCategories = document.querySelector("#productCategories");
-const allBtn = document.querySelector("[cat='all']");
+const  productCategories = document.querySelector("#productCategories");
+// const allBtn = document.querySelector("[cat='all']");
 
 
 // Imperative thinking
@@ -34,6 +34,7 @@ const allBtn = document.querySelector("[cat='all']");
 
 // functions
 
+// show category function
 const showCategory = (currentBtn, allBtns) => {
   allBtns.forEach(btn => {
     btn.classList.remove("active");
@@ -42,16 +43,21 @@ const showCategory = (currentBtn, allBtns) => {
     }
   })
 
-  // console.log(currentBtn.innerText);
+  const currentCategory = currentBtn.getAttribute("cat");
 
-  renderProductCard(
-    items.filter(
-      (product) => product.category === currentBtn.getAttribute("cat")
-    ));
-}
+  if(currentCategory === "all") {
+    renderProductCard(items);
+  } else {
+    renderProductCard(
+      items.filter(
+        (product) => product.category === currentCategory
+      ));
+  }
 
+  }
+
+// add setTimeOut to get all elements after loading and render category and showCategory function
 setTimeout(() => {
-    const allCards = document.querySelectorAll("#allCardBox .card")
     const categories = [...new Set(items.map((product) => product.category))];
     categories.forEach(category => {
       productCategories.append(createCategoryBtn(category));
@@ -113,15 +119,16 @@ const productDetailCarouselItems = (arr) => {
   return {slides,indicators};
 }
 
+// replace category '-' names into " " function
 const slugToText = (slug) => {
   return slug.replaceAll("-", " ");
 }
 
+// show product detail modal function from showInfo that works from createCard()
 const renderProductDeatilModal = (currentCard) => {
   const currentProductId = currentCard.getAttribute("itemId")
   const currentProduct = items.find((product => product.id == currentProductId));
 
-  // console.log(productDetailModal);
   // ဒီနေရာမှာ productDetailModal က DOM Element မဟုတ်ပါ "_element" ကမှ တကယ့် DOM Element ပါ 
   productDetailModal._element.querySelector(".modal-title").innerText = currentProduct.title;
   productDetailModal._element.querySelector(".modal-body").innerHTML = `
@@ -153,7 +160,7 @@ const renderProductDeatilModal = (currentCard) => {
   productDetailModal.show();
 }
 
-// show card info function
+// show card info function works from createCard()
 function showInfo(card) {
   let currentCard = card.closest(".itemCard");
   if(currentCard) {
@@ -161,13 +168,12 @@ function showInfo(card) {
   }
 }
 
+// add to cart function works from createCard()
 function addToCart(btn) {
   console.log(btn.target);
 }
 
-// productDetailModal.show();
-
-
+// createCard() function works from main.js;
 export function createCard(items) {
     let div = document.createElement("div");
     div.classList.add("col-12", "col-md-6", "col-lg-4", "itemCard", "animate__animated", "animate__bounceIn");
@@ -195,8 +201,6 @@ export function createCard(items) {
       </div>
     `;
 
-    // console.log(items);
-
     const allCards = document.querySelectorAll(".itemCard");
     const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
 
@@ -206,12 +210,6 @@ export function createCard(items) {
           showInfo(event.target);
         };
       });
-
-      // card.addEventListener('click', (event) => {
-      //   if(event.target.classList.contains("cat")) {
-      //     console.log("contain cat");
-      //   };
-      // });
     })
 
     addCartBtns.forEach(btn => {
