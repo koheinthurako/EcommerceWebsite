@@ -6,7 +6,8 @@ const allCardBox = document.querySelector("#allCardBox");
 const productCategories = document.querySelector("#productCategories");
 export let items;
 
-const renderProductCard = (products) => {
+export const renderProductCard = (products) => {
+  allCardBox.innerHTML = null;
   products.forEach(product => {
     allCardBox.append(createCard(product));
   });
@@ -24,7 +25,3 @@ fetch('https://dummyjson.com/products')
     //     allCardBox.append(createCard(item));
     // });
   });
-
-  // console.log(allProducts);
-
-

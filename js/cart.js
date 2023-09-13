@@ -1,4 +1,4 @@
-import { allProducts, items } from "../main";
+import { items, renderProductCard } from "../main";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
@@ -34,43 +34,36 @@ const allBtn = document.querySelector("[cat='all']");
 
 // functions
 
-const showCategory = (currentBtn, allBtns, allProducts, allCards) => {
+const showCategory = (currentBtn, allBtns) => {
   allBtns.forEach(btn => {
     btn.classList.remove("active");
+    if(!currentBtn.classList.contains("active")) {
+      currentBtn.classList.add("active");
+    }
   })
-  if(!currentBtn.classList.contains("active")) {
-    currentBtn.classList.add("active");
-  }
-  // console.log(currentBtn.getAttribute("cat"));
-  // if(allProducts.find((product) => product.cartegory === currentBtn.getAttribute("cat"))) {
-  //   console.log("True");
-  // } else {
-  //   console.log("False");
-  // }
 
-  let currentCategory = currentBtn.getAttribute("cat");
-  console.log(currentCategory);
+  // console.log(currentBtn.innerText);
 
-  let originProductCategory = allProducts.find((product) => product.category == currentCategory);
-  console.log(originProductCategory);
-  console.log(allCards);
-
+  renderProductCard(
+    items.filter(
+      (product) => product.category === currentBtn.getAttribute("cat")
+    ));
 }
 
-// setTimeout(() => {
-//     const allCards = document.querySelectorAll("#allCardBox .card")
-//     const categories = [...new Set(allProducts.map((product) => product.category))];
-//     categories.forEach(category => {
-//       productCategories.append(createCategoryBtn(category));
-//     });
+setTimeout(() => {
+    const allCards = document.querySelectorAll("#allCardBox .card")
+    const categories = [...new Set(items.map((product) => product.category))];
+    categories.forEach(category => {
+      productCategories.append(createCategoryBtn(category));
+    });
 
-//     const categoryBtns = document.querySelectorAll("#productCategories .btn");
-//     categoryBtns.forEach(btn => {
-//       btn.addEventListener('click', () => {
-//         showCategory(btn, categoryBtns, allProducts, allCards);
-//       });
-//     });
-// }, 1000)
+    const categoryBtns = document.querySelectorAll("#productCategories .btn");
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        showCategory(btn, categoryBtns);
+      });
+    });
+}, 1000)
 
 // carousel photo function
 const createCategoryBtn = (name) => {
@@ -124,10 +117,7 @@ const slugToText = (slug) => {
   return slug.replaceAll("-", " ");
 }
 
-// show card info function
-function showInfo(card) {
-  let currentCard = card.target.closest(".itemCard");
-  // console.log(currentCard);
+const renderProductDeatilModal = (currentCard) => {
   const currentProductId = currentCard.getAttribute("itemId")
   const currentProduct = items.find((product => product.id == currentProductId));
 
@@ -161,6 +151,14 @@ function showInfo(card) {
   `;
 
   productDetailModal.show();
+}
+
+// show card info function
+function showInfo(card) {
+  let currentCard = card.closest(".itemCard");
+  if(currentCard) {
+    renderProductDeatilModal(currentCard);
+  }
 }
 
 function addToCart(btn) {
@@ -203,7 +201,17 @@ export function createCard(items) {
     const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
 
     allCards.forEach(card => {
-      card.addEventListener('click', showInfo);
+      card.addEventListener('click', (event) => {
+        if(event.target.closest(".itemCard")) {
+          showInfo(event.target);
+        };
+      });
+
+      // card.addEventListener('click', (event) => {
+      //   if(event.target.classList.contains("cat")) {
+      //     console.log("contain cat");
+      //   };
+      // });
     })
 
     addCartBtns.forEach(btn => {
