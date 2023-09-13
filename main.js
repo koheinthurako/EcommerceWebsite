@@ -3,17 +3,26 @@ import "./node_modules/bootstrap/dist/js/bootstrap.bundle";
 export let allProducts;
 
 const allCardBox = document.querySelector("#allCardBox");
+const productCategories = document.querySelector("#productCategories");
+export let items;
 
+const renderProductCard = (products) => {
+  products.forEach(product => {
+    allCardBox.append(createCard(product));
+  });
+}
 
 fetch('https://dummyjson.com/products')
   .then(res => res.json())
   .then(products => {
-    const items = products.products;
-    allProducts = items;
+    items = products.products;
+    // allProducts = items;
 
-    items.forEach(item => {
-        allCardBox.append(createCard(item));
-    });
+    renderProductCard(items);
+
+    // items.forEach(item => {
+    //     allCardBox.append(createCard(item));
+    // });
   });
 
   // console.log(allProducts);

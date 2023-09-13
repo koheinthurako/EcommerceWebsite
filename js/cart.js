@@ -1,8 +1,8 @@
-import { allProducts } from "../main";
+import { allProducts, items } from "../main";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
-const productCategories = document.querySelector("#productCategories");
+// const productCategories = document.querySelector("#productCategories");
 const allBtn = document.querySelector("[cat='all']");
 
 
@@ -57,20 +57,20 @@ const showCategory = (currentBtn, allBtns, allProducts, allCards) => {
 
 }
 
-setTimeout(() => {
-    const allCards = document.querySelectorAll("#allCardBox .card")
-    const categories = [...new Set(allProducts.map((product) => product.category))];
-    categories.forEach(category => {
-      productCategories.append(createCategoryBtn(category));
-    });
+// setTimeout(() => {
+//     const allCards = document.querySelectorAll("#allCardBox .card")
+//     const categories = [...new Set(allProducts.map((product) => product.category))];
+//     categories.forEach(category => {
+//       productCategories.append(createCategoryBtn(category));
+//     });
 
-    const categoryBtns = document.querySelectorAll("#productCategories .btn");
-    categoryBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        showCategory(btn, categoryBtns, allProducts, allCards);
-      });
-    });
-}, 1000)
+//     const categoryBtns = document.querySelectorAll("#productCategories .btn");
+//     categoryBtns.forEach(btn => {
+//       btn.addEventListener('click', () => {
+//         showCategory(btn, categoryBtns, allProducts, allCards);
+//       });
+//     });
+// }, 1000)
 
 // carousel photo function
 const createCategoryBtn = (name) => {
@@ -129,7 +129,7 @@ function showInfo(card) {
   let currentCard = card.target.closest(".itemCard");
   // console.log(currentCard);
   const currentProductId = currentCard.getAttribute("itemId")
-  const currentProduct = allProducts.find((product => product.id == currentProductId));
+  const currentProduct = items.find((product => product.id == currentProductId));
 
   // console.log(productDetailModal);
   // ဒီနေရာမှာ productDetailModal က DOM Element မဟုတ်ပါ "_element" ကမှ တကယ့် DOM Element ပါ 
