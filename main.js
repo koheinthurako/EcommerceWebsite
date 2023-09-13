@@ -2,6 +2,9 @@ import { createCard } from "./js/cart";
 import "./node_modules/bootstrap/dist/js/bootstrap.bundle";
 export let allProducts;
 
+const allCardBox = document.querySelector("#allCardBox");
+
+
 fetch('https://dummyjson.com/products')
   .then(res => res.json())
   .then(products => {
@@ -9,8 +12,10 @@ fetch('https://dummyjson.com/products')
     allProducts = items;
 
     items.forEach(item => {
-        createCard(item);
+        allCardBox.append(createCard(item));
     });
   });
+
+  // console.log(allProducts);
 
 

@@ -1,7 +1,6 @@
 import { allProducts } from "../main";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
-const allCardBox = document.querySelector("#allCardBox");
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
 const productCategories = document.querySelector("#productCategories");
 const allBtn = document.querySelector("[cat='all']");
@@ -35,16 +34,31 @@ const allBtn = document.querySelector("[cat='all']");
 
 // functions
 
-const showCategory = (btn, allBtns) => {
+const showCategory = (currentBtn, allBtns, allProducts, allCards) => {
   allBtns.forEach(btn => {
     btn.classList.remove("active");
   })
-  if(!btn.classList.contains("active")) {
-    btn.classList.add("active");
+  if(!currentBtn.classList.contains("active")) {
+    currentBtn.classList.add("active");
   }
+  // console.log(currentBtn.getAttribute("cat"));
+  // if(allProducts.find((product) => product.cartegory === currentBtn.getAttribute("cat"))) {
+  //   console.log("True");
+  // } else {
+  //   console.log("False");
+  // }
+
+  let currentCategory = currentBtn.getAttribute("cat");
+  console.log(currentCategory);
+
+  let originProductCategory = allProducts.find((product) => product.category == currentCategory);
+  console.log(originProductCategory);
+  console.log(allCards);
+
 }
 
 setTimeout(() => {
+    const allCards = document.querySelectorAll("#allCardBox .card")
     const categories = [...new Set(allProducts.map((product) => product.category))];
     categories.forEach(category => {
       productCategories.append(createCategoryBtn(category));
@@ -52,13 +66,10 @@ setTimeout(() => {
 
     const categoryBtns = document.querySelectorAll("#productCategories .btn");
     categoryBtns.forEach(btn => {
-      // btn.classList.remove("active");
-      // btn.addEventListener('click', showCategory);
       btn.addEventListener('click', () => {
-        showCategory(btn, categoryBtns);
+        showCategory(btn, categoryBtns, allProducts, allCards);
       });
     });
-
 }, 1000)
 
 // carousel photo function
@@ -70,7 +81,8 @@ const createCategoryBtn = (name) => {
   return btn;
 }
 
-const stars = (no) => { // function expression
+// turning star into UI
+const stars = (no) => { 
   let star = "";
   for(let i = 1; i <= 5; i++) {
       if(Math.ceil(no) <= i) {
@@ -82,6 +94,7 @@ const stars = (no) => { // function expression
   return star;
 }
 
+// carousel indicator and slides control function
 const productDetailCarouselItems = (arr) => {
   let slides = "";
   let indicators = "";
@@ -111,6 +124,7 @@ const slugToText = (slug) => {
   return slug.replaceAll("-", " ");
 }
 
+// show card info function
 function showInfo(card) {
   let currentCard = card.target.closest(".itemCard");
   // console.log(currentCard);
@@ -184,9 +198,6 @@ export function createCard(items) {
     `;
 
     // console.log(items);
-    allCardBox.append(div);
-
-
 
     const allCards = document.querySelectorAll(".itemCard");
     const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
@@ -199,5 +210,6 @@ export function createCard(items) {
       btn.addEventListener('click', addToCart);
     })
     
+    return div;
 
 }
