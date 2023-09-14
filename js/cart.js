@@ -105,7 +105,7 @@ const createCategoryBtn = (name) => {
 const stars = (no) => { 
   let star = "";
   for(let i = 1; i <= 5; i++) {
-      if(Math.ceil(no) <= i) {
+      if(Math.floor(no) < i) {
         star += "<i class='bi bi-star'></i>"
       } else {
         star += "<i class='bi bi-star-fill'></i>"
