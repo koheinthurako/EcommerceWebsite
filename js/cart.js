@@ -60,23 +60,35 @@ const showCategory = (currentBtn, allBtns) => {
 
 // add setTimeOut to get all elements after loading and render category and showCategory function
 setTimeout(() => {
-    const categories = [...new Set(items.map((product) => product.category))];
-    categories.forEach(category => {
-      productCategories.append(createCategoryBtn(category));
-    });
+  const categories = [...new Set(items.map((product) => product.category))];
+  categories.forEach(category => {
+    productCategories.append(createCategoryBtn(category));
+  });
 
-    const categoryBtns = document.querySelectorAll("#productCategories .btn");
-    categoryBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        showCategory(btn, categoryBtns);
-      });
+  const categoryBtns = document.querySelectorAll("#productCategories .btn");
+  categoryBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      showCategory(btn, categoryBtns);
     });
+  });
 
-    // const renderBySearch = (keyword) => {
-    //   renderProductCard((items).filter(item => {
-    //     return item.title.search(keyword) != -1;
-    //   }));
-    // }
+  const renderBySearch = (keyword) => {
+    renderProductCard((items).filter(item => {
+      return item.title.toLowerCase().search(keyword.toLowerCase()) != -1;
+    }));
+  }
+
+  searchBtn.addEventListener('click', _ => {
+    renderBySearch(searchInput.value);
+    searchInput.value = null;
+  });
+
+  searchInput.addEventListener('keyup', e => {
+    if(e.key == "Enter") {
+      renderBySearch(searchInput.value);
+      searchInput.value = null;
+    }
+  });
 
 }, 1000)
 
@@ -134,7 +146,7 @@ const slugToText = (slug) => {
 }
 
 // show product detail modal function from showInfo that works from createCard()
-const renderProductDeatilModal = (currentCard) => {
+export const renderProductDeatilModal = (currentCard) => {
   const currentProductId = currentCard.getAttribute("itemId")
   const currentProduct = items.find((product => product.id == currentProductId));
 
@@ -170,7 +182,7 @@ const renderProductDeatilModal = (currentCard) => {
 }
 
 // show card info function works from createCard()
-function showInfo(card) {
+export function showInfo(card) {
   let currentCard = card.closest(".itemCard");
   if(currentCard) {
     renderProductDeatilModal(currentCard);
@@ -211,6 +223,7 @@ export function createCard(items) {
     `;
 
     const allCards = document.querySelectorAll(".itemCard");
+    const lastCard = allCards[allCards.length - 1];
     const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
 
     allCards.forEach(card => {
@@ -228,16 +241,3 @@ export function createCard(items) {
     return div;
 
 }
-
-setTimeout(() => {
-  const renderBySearch = (keyword) => {
-      renderProductCard((items).filter(item => {
-        return item.title.search(keyword) != -1;
-      }));
-  }
-
-  searchBtn.addEventListener('click', _ => {
-    renderBySearch(searchInput.value);
-  });
-
-}, 1000);

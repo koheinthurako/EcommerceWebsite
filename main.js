@@ -1,4 +1,4 @@
-import { createCard } from "./js/cart";
+import { createCard, showInfo } from "./js/cart";
 import "./node_modules/bootstrap/dist/js/bootstrap.bundle";
 // export let allProducts;
 
@@ -10,6 +10,15 @@ export const renderProductCard = (products) => {
   products.forEach(product => {
     allCardBox.append(createCard(product));
   });
+  const allCards = document.querySelectorAll(".itemCard");
+  const lastCard = allCards[allCards.length - 1];
+
+  lastCard.addEventListener('click', (event) => {
+    if(event.target.closest(".itemCard")) {
+      showInfo(event.target);
+    };
+  });
+
 }
 
 fetch('https://dummyjson.com/products')
