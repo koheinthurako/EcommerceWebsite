@@ -3,8 +3,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
 const  productCategories = document.querySelector("#productCategories");
-// const allBtn = document.querySelector("[cat='all']");
-
+const searchBtn = document.getElementById("searchBtn");
 
 // Imperative thinking
 // const categories = [];
@@ -33,6 +32,7 @@ const  productCategories = document.querySelector("#productCategories");
 
 
 // functions
+
 
 // show category function
 const showCategory = (currentBtn, allBtns) => {
@@ -69,6 +69,13 @@ setTimeout(() => {
         showCategory(btn, categoryBtns);
       });
     });
+
+    // const renderBySearch = (keyword) => {
+    //   renderProductCard((items).filter(item => {
+    //     return item.title.search(keyword) != -1;
+    //   }));
+    // }
+
 }, 1000)
 
 // carousel photo function
@@ -219,3 +226,7 @@ export function createCard(items) {
     return div;
 
 }
+
+searchBtn.addEventListener('click', _ => {
+  
+});

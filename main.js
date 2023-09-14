@@ -1,6 +1,6 @@
 import { createCard } from "./js/cart";
 import "./node_modules/bootstrap/dist/js/bootstrap.bundle";
-export let allProducts;
+// export let allProducts;
 
 const allCardBox = document.querySelector("#allCardBox");
 export let items;
