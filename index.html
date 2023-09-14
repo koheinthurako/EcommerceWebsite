@@ -10,25 +10,24 @@
 
     <header>
       <div class="container">
-        <div class="row mb-2">
+        <div class="row">
           <div class="col-12" id="navbar">
             <div class="d-flex bg-white border-0 justify-content-between align-items-center rounded-3 shadow-sm p-3 mt-2 mb-3">
               <h3 class="fw-bold mb-0" id="mainIcon">
                 <i class="bi bi-bag-fill me-2"></i>
                 My Shop
               </h3>
-              <div class="d-flex gap-3">
-                <div class="d-flex" role="search">
-                  <input id="searchInput" class="form-control me-2" type="search" placeholder="Search products" aria-label="Search">
-                  <button class="btn btn-outline-dark" id="searchBtn">Search</button>
-                </div>
-                <button class="btn btn-lg btn-dark">
-                  <i class="bi bi-cart-fill me-1"></i>
-                  Cart
-                </button>
-              </div>
+              <button class="btn btn-lg btn-dark">
+                <i class="bi bi-cart-fill me-1"></i>
+                Cart
+              </button>
             </div>
           </div>
+        </div>
+
+        <div class="d-flex mb-3" role="search">
+          <input id="searchInput" class="form-control me-2" type="search" placeholder="Search products" aria-label="Search">
+          <button class="btn btn-outline-dark" id="searchBtn">Search</button>
         </div>
 
         <div class="d-flex flex-wrap gap-3 mb-4" id="productCategories">
