@@ -1,9 +1,11 @@
+import { render } from "sass";
 import { items, renderProductCard } from "../main";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const productDetailModal = new bootstrap.Modal("#productDetailModal");
 const  productCategories = document.querySelector("#productCategories");
 const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
 
 // Imperative thinking
 // const categories = [];
@@ -227,6 +229,15 @@ export function createCard(items) {
 
 }
 
-searchBtn.addEventListener('click', _ => {
-  
-});
+setTimeout(() => {
+  const renderBySearch = (keyword) => {
+      renderProductCard((items).filter(item => {
+        return item.title.search(keyword) != -1;
+      }));
+  }
+
+  searchBtn.addEventListener('click', _ => {
+    renderBySearch(searchInput.value);
+  });
+
+}, 1000);
