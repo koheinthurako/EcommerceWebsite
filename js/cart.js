@@ -1,4 +1,4 @@
-import { render } from "sass";
+// import { render } from "sass";
 import { items, renderProductCard } from "../main";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
@@ -6,6 +6,7 @@ const productDetailModal = new bootstrap.Modal("#productDetailModal");
 const  productCategories = document.querySelector("#productCategories");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
+const cart = document.querySelector("#navCart");
 
 // Imperative thinking
 // const categories = [];
@@ -192,22 +193,42 @@ export function showInfo(card) {
 // add to cart function works from createCard()
 function addToCart(btn, realImg, imgLocation) {
   let currentBtn = btn.target;
-  let currentParent = currentBtn.closest(".itemCard");
+  
+
   if(currentBtn.classList.contains("active")) {
     currentBtn.classList.remove("active");
-    currentBtn.innerText = "Add to cart";
+    currentBtn.innerText = "Add to Cart";
   } else {
+    currentBtn.classList.add("active");
+    currentBtn.innerText = "Added";
     // duplicate new image to animate
     const imgToAnimate = new Image();
     imgToAnimate.src = realImg;
-    // document.body.append(imgToAnimate);
-    console.log(imgLocation.getBoundingClientRect());
+    imgToAnimate.classList = "rounded-3";
+    imgToAnimate.style.position = "fixed";
+    imgToAnimate.style.transition = "0.5s";
+    imgToAnimate.style.zIndex = 2500;
 
     // find image location in document
+    imgToAnimate.style.width = imgLocation.getBoundingClientRect().width + "px";
+    imgToAnimate.style.height = imgLocation.getBoundingClientRect().height + "px";
+    imgToAnimate.style.left = (imgLocation.getBoundingClientRect().left) + "px";
+    imgToAnimate.style.top = imgLocation.getBoundingClientRect().top + "px";
+    document.body.append(imgToAnimate);
+    // console.log(imgLocation.getBoundingClientRect());
+    
+    // set add to cart animation
+    setTimeout(() => {
+        imgToAnimate.style.left = cart.getBoundingClientRect().left + 10 + "px";
+        imgToAnimate.style.top = cart.getBoundingClientRect().top + 20 + "px";
+        imgToAnimate.style.transform = "rotate(360deg)";
+        imgToAnimate.style.width = "0px";
+        imgToAnimate.style.height = "0px";
 
-    currentBtn.classList.add("active");
-    currentBtn.innerText = "Added";
-  }
+      }, 100);
+      
+      
+    }
 }
 
 // createCard() function works from main.js;
