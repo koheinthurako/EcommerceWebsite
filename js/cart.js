@@ -190,7 +190,7 @@ export function showInfo(card) {
 }
 
 // add to cart function works from createCard()
-function addToCart(btn, img) {
+function addToCart(btn, realImg, imgLocation) {
   let currentBtn = btn.target;
   let currentParent = currentBtn.closest(".itemCard");
   if(currentBtn.classList.contains("active")) {
@@ -199,8 +199,11 @@ function addToCart(btn, img) {
   } else {
     // duplicate new image to animate
     const imgToAnimate = new Image();
-    imgToAnimate.src = img;
-    document.body.append(imgToAnimate);
+    imgToAnimate.src = realImg;
+    // document.body.append(imgToAnimate);
+    console.log(imgLocation.getBoundingClientRect());
+
+    // find image location in document
 
     currentBtn.classList.add("active");
     currentBtn.innerText = "Added";
@@ -246,7 +249,7 @@ export function createCard(items) {
     div.querySelector(".card .card-footer").append(addToCartBtn);
 
     addToCartBtn.addEventListener('click', (event) => {
-      addToCart(event, items.thumbnail);
+      addToCart(event, items.thumbnail, img);
     })
 
     allCards.forEach(card => {
