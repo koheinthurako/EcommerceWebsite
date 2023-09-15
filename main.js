@@ -15,7 +15,7 @@ export const renderProductCard = (products) => {
 
   lastCard.addEventListener('click', (event) => {
     if(event.target.closest(".itemCard")) {
-      showInfo(event.target);
+      showInfo(event);
     };
   });
 
@@ -26,4 +26,4 @@ fetch('https://dummyjson.com/products')
   .then(products => {
     items = products.products;
     renderProductCard(items);
-  });
+});

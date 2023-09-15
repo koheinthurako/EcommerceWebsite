@@ -190,8 +190,21 @@ export function showInfo(card) {
 }
 
 // add to cart function works from createCard()
-function addToCart(btn) {
-  console.log(btn.target);
+function addToCart(btn, img) {
+  let currentBtn = btn.target;
+  let currentParent = currentBtn.closest(".itemCard");
+  if(currentBtn.classList.contains("active")) {
+    currentBtn.classList.remove("active");
+    currentBtn.innerText = "Add to cart";
+  } else {
+    // duplicate new image to animate
+    const imgToAnimate = new Image();
+    imgToAnimate.src = img;
+    document.body.append(imgToAnimate);
+
+    currentBtn.classList.add("active");
+    currentBtn.innerText = "Added";
+  }
 }
 
 // createCard() function works from main.js;
@@ -203,7 +216,6 @@ export function createCard(items) {
       <div class="card border-0 shadow h-100">
         <div class="card-body d-flex flex-column justify-content-between">
           <div class="info mb-4">
-            <img class="productCardImg mb-3 rounded-3" src="${items.thumbnail}" alt="">
             <h4 class="fw-bold">${items.title}</h4>
             <p class="badge bg-secondary text-capitalize px-3 py-2">${slugToText(items.category)}</p>
             <p class="small text-muted">${items.description}</p>
@@ -217,31 +229,34 @@ export function createCard(items) {
           </div>
           </div>
         <div class="card-footer bg-white py-3">
-          <button class="btn btn-outline-dark w-100 addToCart">Add to cart</button>
         </div>
       </div>
     `;
 
     const allCards = document.querySelectorAll(".itemCard");
-    const addCartBtns = document.querySelectorAll(".card-footer .addToCart");
+    // const addCartBtns = document.querySelectorAll(".card-footer .addToCart");
+    const img = new Image();
+    img.src = items.thumbnail;
+    img.className = "productCardImg mb-3 rounded-3"
+    div.querySelector(".card-body .info").prepend(img);
+    
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "btn btn-outline-dark w-100 addToCart";
+    addToCartBtn.innerText = "Add to Cart";
+    div.querySelector(".card .card-footer").append(addToCartBtn);
 
-    // allCards.forEach(card => {
-    //   card.addEventListener('click', (event) => {
-    //     if(event.target.closest(".itemCard")) {
-    //       showInfo(event.target);
-    //       console.log(event);
-    //     };
-    //   });
-    // })
+    addToCartBtn.addEventListener('click', (event) => {
+      addToCart(event, items.thumbnail);
+    })
 
     allCards.forEach(card => {
       card.addEventListener('click', showInfo);
     })
 
-    addCartBtns.forEach(btn => {
-      btn.addEventListener('click', addToCart);
-    })
-    
+    // addCartBtns.forEach(btn => {
+    //   btn.addEventListener('click', addToCart);
+    // })
+
     return div;
 
 }
