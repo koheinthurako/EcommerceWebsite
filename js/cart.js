@@ -183,8 +183,8 @@ export const renderProductDeatilModal = (currentCard) => {
 
 // show card info function works from createCard()
 export function showInfo(card) {
-  let currentCard = card.closest(".itemCard");
-  if(currentCard) {
+  let currentCard = card.target.closest(".itemCard");
+  if(currentCard && !card.target.classList.contains("addToCart")) {
     renderProductDeatilModal(currentCard);
   }
 }
@@ -217,21 +217,25 @@ export function createCard(items) {
           </div>
           </div>
         <div class="card-footer bg-white py-3">
-          <button class="btn btn-outline-dark w-100 addCartBtn">Add to cart</button>
+          <button class="btn btn-outline-dark w-100 addToCart">Add to cart</button>
         </div>
       </div>
     `;
 
     const allCards = document.querySelectorAll(".itemCard");
-    const lastCard = allCards[allCards.length - 1];
-    const addCartBtns = document.querySelectorAll(".card-footer .addCartBtn");
+    const addCartBtns = document.querySelectorAll(".card-footer .addToCart");
+
+    // allCards.forEach(card => {
+    //   card.addEventListener('click', (event) => {
+    //     if(event.target.closest(".itemCard")) {
+    //       showInfo(event.target);
+    //       console.log(event);
+    //     };
+    //   });
+    // })
 
     allCards.forEach(card => {
-      card.addEventListener('click', (event) => {
-        if(event.target.closest(".itemCard")) {
-          showInfo(event.target);
-        };
-      });
+      card.addEventListener('click', showInfo);
     })
 
     addCartBtns.forEach(btn => {
