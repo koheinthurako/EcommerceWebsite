@@ -1,7 +1,5 @@
 $font-family-sans-serif: 'Poppins', sans-serif;
 
-$dark: rgb(98, 1, 1);
-
 // reduce scss import to solve $dividend: abs($dividend); sass bug
 @import './node_modules/bootstrap/scss/functions';
 @import './node_modules/bootstrap/scss/_variables';
